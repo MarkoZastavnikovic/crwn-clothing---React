@@ -5,7 +5,7 @@ import "./App.css";
 import HomePage from "./pages/homepage/homepage.component.jsx";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
-import SighInAndSignUpPage from "./pages/sign-in-and-sigh-up/sign-in-and-sigh-up.component";
+import Authentication from "./pages/authentication/authentication.component";
 
 function App() {
   return (
@@ -13,8 +13,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index path="/" element={<HomePage />} />
-          <Route path="/shop" element={<ShopPage />} />
-          <Route path="/sign-in" element={<SighInAndSignUpPage />} />
+          <Route path="shop" element={<ShopPage />} />
+          <Route path="contact" />
+          <Route path="auth" element={<Authentication />} />
+          <Route path="shop/hats" />
+          <Route path="shop/jackets" />
+          <Route path="shop/sneakers" />
+          <Route path="shop/womens" />
+          <Route path="shop/mens" />
         </Route>
       </Routes>
     </div>
