@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./sign-in.styles.scss";
+
+import { UserContext } from "../../contexts/user.context";
 
 // import { getRedirectResult } from "firebase/auth";
 
@@ -22,11 +25,13 @@ const SignIn = () => {
 
   const { email, password } = signInFields;
 
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
   const resetSignInFields = () => {
     setSignInFields(defaultSignInFields);
   };
 
-  // console.log(signInFields);
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   async function fetchData() {
@@ -38,17 +43,25 @@ const SignIn = () => {
   //   fetchData();
   // }, []);
 
+  useEffect(() => {
+    if (currentUser) {
+      alert("Successfully signed in.");
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
+
   const signInWithGoogle = async () => {
     try {
       const { user } = await signInWithGooglePopup();
-      const userDocRef = await createUserDocumentFromAuth(user);
-      console.log(userDocRef);
+      await createUserDocumentFromAuth(user);
+
+      setCurrentUser(user);
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") {
         return;
       } else {
-        alert("Something went wrong.");
         console.error(`MARZ: Google sign in problem (${err.message})`);
+        alert(`Something went wrong. (Error code: ${err.code})`);
       }
     }
   };
@@ -63,8 +76,9 @@ const SignIn = () => {
 
     try {
       const { user } = await signInAuthWithEmailAndPassword(email, password);
-      const userDocRef = await createUserDocumentFromAuth(user);
-      console.log(userDocRef);
+      await createUserDocumentFromAuth(user);
+
+      setCurrentUser(user);
 
       resetSignInFields();
     } catch (err) {
@@ -75,6 +89,7 @@ const SignIn = () => {
         alert("Either your email or password are wrong.");
       } else {
         console.error(`MARZ: sign in problem (${err.message})`);
+        alert(`Something went wrong. (Error code: ${err.code})`);
       }
     }
   };

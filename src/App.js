@@ -4,6 +4,7 @@ import "./App.css";
 
 import HomePage from "./pages/homepage/homepage.component.jsx";
 import ShopPage from "./pages/shop/shop.component";
+import ContactPage from "./pages/contact/contact.component";
 import Header from "./components/header/header.component";
 import Authentication from "./pages/authentication/authentication.component";
 
@@ -14,7 +15,7 @@ function App() {
         <Route path="/" element={<Header />}>
           <Route index path="/" element={<HomePage />} />
           <Route path="shop" element={<ShopPage />} />
-          <Route path="contact" />
+          <Route path="contact" element={<ContactPage />} />
           <Route path="auth" element={<Authentication />} />
           <Route path="shop/hats" />
           <Route path="shop/jackets" />

@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { UserContext } from "../../contexts/user.context";
 
 import {
   creatAuthUserWithEmailAndPassword,
@@ -22,6 +24,8 @@ const SignUpForm = () => {
 
   const { displayName, email, password, confirmPassword } = formFields;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -34,21 +38,24 @@ const SignUpForm = () => {
       return;
     }
 
-    if (!email || !password) {
+    if (!displayName || !email || !password) {
       alert("Fill out the sign-in fields.");
       return;
     }
 
     try {
       const { user } = await creatAuthUserWithEmailAndPassword(email, password);
-      const userDocRef = await createUserDocumentFromAuth(user, displayName);
-      console.log(userDocRef);
+      await createUserDocumentFromAuth(user, displayName);
+
+      setCurrentUser(user);
+
       resetFormFields();
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use.");
       } else {
         console.error(`MARZ: sign up problem (${err.message})`);
+        alert(`Something went wrong. (Error code: ${err.code})`);
       }
     }
   };
@@ -69,7 +76,7 @@ const SignUpForm = () => {
           name="displayName"
           value={displayName}
           onChange={handleChange}
-          label="displayName"
+          label="display name"
           required
         />
 
@@ -96,7 +103,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
           onChange={handleChange}
-          label="confirmPassword"
+          label="confirm password"
           required
         />
 

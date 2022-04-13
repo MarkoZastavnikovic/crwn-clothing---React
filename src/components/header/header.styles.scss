@@ -1,25 +1,58 @@
 .header {
-  height: 7rem;
-  width: 100%;
+  position: fixed;
+  opacity: 0.93;
+  width: 100vw;
+  height: 8rem;
+  // width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2.5rem;
+  align-items: center;
+  // margin-bottom: 2.5rem;
+  background-color: white;
+  padding: 0 4.8rem;
+  z-index: 10;
 
   .logo-container {
-    height: 100%;
+    height: 7rem;
     width: 7rem;
-    padding: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // padding: 2.5rem;
   }
 
   .options {
-    width: 50%;
+    // width: 50%;
     height: 100%;
-    display: flex;
+    // display: flex;
+    // align-items: center;
+    // justify-content: flex-end;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr;
     align-items: center;
-    justify-content: flex-end;
+    justify-items: center;
 
     .option {
       padding: 1rem 1.5rem;
+      cursor: pointer;
+      border-bottom: 0.1rem solid transparent;
+
+      // &:last-child {
+      //   text-align: center;
+      // }
+
+      &:hover {
+        border-bottom: 0.1rem solid black;
+      }
+    }
+
+    .sign-out {
+      transition: all 0.5s;
+
+      &:hover {
+        background-color: red;
+        border-bottom: 0.1rem solid transparent;
+      }
     }
   }
 }
