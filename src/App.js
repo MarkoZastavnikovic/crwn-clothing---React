@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
+import { UserContext } from "./contexts/user.context";
+
+import Authentication from "./pages/authentication/authentication.component";
 import HomePage from "./pages/homepage/homepage.component.jsx";
 import ShopPage from "./pages/shop/shop.component";
 import ContactPage from "./pages/contact/contact.component";
 import Header from "./components/header/header.component";
-import Authentication from "./pages/authentication/authentication.component";
 
 function App() {
+  const { currentUser } = useContext(UserContext);
   return (
     <div className="App">
       <Routes>
@@ -16,12 +19,15 @@ function App() {
           <Route index path="/" element={<HomePage />} />
           <Route path="shop" element={<ShopPage />} />
           <Route path="contact" element={<ContactPage />} />
-          <Route path="auth" element={<Authentication />} />
-          <Route path="shop/hats" />
-          <Route path="shop/jackets" />
-          <Route path="shop/sneakers" />
-          <Route path="shop/womens" />
-          <Route path="shop/mens" />
+          <Route
+            path="auth"
+            element={currentUser ? null : <Authentication />}
+          />
+          <Route path="shop/hats" element={null} />
+          <Route path="shop/jackets" element={null} />
+          <Route path="shop/sneakers" element={null} />
+          <Route path="shop/womens" element={null} />
+          <Route path="shop/mens" element={null} />
         </Route>
       </Routes>
     </div>

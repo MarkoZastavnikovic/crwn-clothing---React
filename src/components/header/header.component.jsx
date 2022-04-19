@@ -9,19 +9,23 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Header = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-
-  const signOutHandler = async () => {
-    await signOutUser();
-    setCurrentUser(null);
-  };
+  const { currentUser } = useContext(UserContext);
 
   return (
     <Fragment>
       <div className="header">
-        <Link className="logo-container" to="/">
-          <Logo className="logo" />
-        </Link>
+        <div className="header-start">
+          <Link className="logo-container" to="/">
+            <Logo className="logo" />
+          </Link>
+          <div className="user-container">
+            {currentUser
+              ? `Welcome, ${
+                  currentUser.displayName ? currentUser.displayName : "user"
+                }!`
+              : null}
+          </div>
+        </div>
         <div className="options">
           <Link className="option" to="/shop">
             SHOP
@@ -31,7 +35,7 @@ const Header = () => {
           </Link>
 
           {currentUser ? (
-            <span className="option sign-out" onClick={signOutHandler}>
+            <span className="option sign-out" onClick={signOutUser}>
               SIGN OUT
             </span>
           ) : (

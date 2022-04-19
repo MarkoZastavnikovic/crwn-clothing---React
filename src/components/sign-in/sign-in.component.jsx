@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import "./sign-in.styles.scss";
 
-import { UserContext } from "../../contexts/user.context";
+import { useNavigate } from "react-router-dom";
 
 // import { getRedirectResult } from "firebase/auth";
 
@@ -25,11 +24,9 @@ const SignIn = () => {
 
   const { email, password } = signInFields;
 
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-
-  const resetSignInFields = () => {
-    setSignInFields(defaultSignInFields);
-  };
+  // const resetSignInFields = () => {
+  //   setSignInFields(defaultSignInFields);
+  // };
 
   const navigate = useNavigate();
 
@@ -43,19 +40,11 @@ const SignIn = () => {
   //   fetchData();
   // }, []);
 
-  useEffect(() => {
-    if (currentUser) {
-      alert("Successfully signed in.");
-      navigate("/");
-    }
-  }, [currentUser, navigate]);
-
   const signInWithGoogle = async () => {
     try {
-      const { user } = await signInWithGooglePopup();
-      await createUserDocumentFromAuth(user);
+      await signInWithGooglePopup();
 
-      setCurrentUser(user);
+      navigate("/");
     } catch (err) {
       if (err.code === "auth/popup-closed-by-user") {
         return;
@@ -75,12 +64,11 @@ const SignIn = () => {
     }
 
     try {
-      const { user } = await signInAuthWithEmailAndPassword(email, password);
-      await createUserDocumentFromAuth(user);
+      await signInAuthWithEmailAndPassword(email, password);
 
-      setCurrentUser(user);
+      // resetSignInFields();
 
-      resetSignInFields();
+      navigate("/");
     } catch (err) {
       if (
         err.code === "auth/wrong-password" ||
