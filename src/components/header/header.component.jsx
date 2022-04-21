@@ -21,7 +21,9 @@ const Header = () => {
           <div className="user-container">
             {currentUser
               ? `Welcome, ${
-                  currentUser.displayName ? currentUser.displayName : "user"
+                  currentUser.displayName
+                    ? currentUser.displayName.split(" ")[0]
+                    : "user"
                 }!`
               : null}
           </div>

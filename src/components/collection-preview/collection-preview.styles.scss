@@ -3,13 +3,44 @@
   flex-direction: column;
   margin-bottom: 3rem;
 
+  .arrow-right {
+    display: inline-block;
+    transform: translate(1rem, -1rem) scale(1.5);
+    opacity: 0;
+    transition: all 0.2s;
+    color: #555;
+  }
+
   .title {
     font-size: 2.8rem;
     margin-bottom: 2.5rem;
+    color: #555;
+    max-width: 20rem;
+    transition: all 0.2s;
+
+    &:hover {
+      color: black;
+      cursor: pointer;
+
+      & .arrow-right {
+        opacity: 100;
+        color: black;
+      }
+    }
+  }
+
+  .arrow-right {
+    display: inline-block;
+    transform: translate(1rem, -1rem) scale(1.5);
+    opacity: 0;
+    transition: all 0.2s;
   }
 
   .preview {
-    display: flex;
-    justify-content: space-between;
+    // display: flex;
+    // justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
   }
 }

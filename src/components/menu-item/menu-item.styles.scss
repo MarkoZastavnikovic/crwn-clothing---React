@@ -1,6 +1,6 @@
 .menu-item {
   min-width: 30%;
-  height: 24rem;
+  height: 35rem;
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -54,6 +54,7 @@
     background-color: white;
     opacity: 0.7;
     position: absolute;
+    transition: all 0.2s;
 
     .title {
       font-weight: bold;
