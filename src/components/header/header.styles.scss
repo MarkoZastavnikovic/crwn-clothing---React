@@ -3,7 +3,8 @@
   top: 0;
   left: 0;
   background-color: #eee;
-  opacity: 0.93;
+  opacity: 0.95;
+  // opacity: 1;
   width: 100vw;
   height: 8rem;
   // width: 100%;
@@ -53,7 +54,8 @@
     // align-items: center;
     // justify-content: flex-end;
     display: grid;
-    grid-template-columns: 1fr 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
     align-items: center;
     justify-items: center;
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./sign-in.styles.scss";
 
 import { useNavigate } from "react-router-dom";
@@ -118,7 +118,7 @@ const SignIn = () => {
             className="google-sign-in"
             onClick={signInWithGoogle}
           >
-            Google sign in
+            sign in with google
           </CustomButton>
 
           {/* <CustomButton

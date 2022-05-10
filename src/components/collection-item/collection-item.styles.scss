@@ -6,7 +6,7 @@
   align-items: center;
   position: relative;
   // background-color: gray;
-  // border: 1px solid gray;
+  border: 1px solid black;
 
   &:hover {
     // border: 1px solid black;
@@ -19,7 +19,7 @@
     }
 
     & .image {
-      opacity: 0.9;
+      opacity: 0.89;
     }
   }
 
@@ -47,7 +47,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 1.8rem;
-    border: 1px solid gray;
+    // border: 1px solid gray;
     // box-shadow: 0 2rem 3rem 0 rgba(0, 0, 0, 0.2);
 
     .name {

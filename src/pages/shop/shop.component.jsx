@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 // import SHOP_DATA from "../../shop-data.json";
 import { ProductsContext } from "../../contexts/products.context";
 import CollectionPreview from "../../components/collection-preview/collection-preview.component";
@@ -10,8 +10,8 @@ const ShopPage = () => {
 
   return (
     <div className="shop-page page">
-      {products.map(({ id, ...otherCollectionProps }) => (
-        <CollectionPreview key={id} {...otherCollectionProps} />
+      {products.map((collection) => (
+        <CollectionPreview key={collection.id} collection={collection} />
       ))}
     </div>
   );

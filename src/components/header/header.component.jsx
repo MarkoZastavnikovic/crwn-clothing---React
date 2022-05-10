@@ -1,8 +1,12 @@
-import React, { Fragment, useContext } from "react";
+import { Fragment, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "./header.styles.scss";
 
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+
 import { UserContext } from "../../contexts/user.context";
+import { CartContext } from "../../contexts/cart.context";
 
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
@@ -10,6 +14,7 @@ import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Header = () => {
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <Fragment>
@@ -45,7 +50,9 @@ const Header = () => {
               SIGN IN
             </Link>
           )}
+          <CartIcon />
         </div>
+        {isCartOpen ? <CartDropdown /> : null}
       </div>
       <Outlet />
     </Fragment>

@@ -1,11 +1,11 @@
-import React from "react";
 import "./collection-preview.styles.scss";
 
 import { useNavigate } from "react-router-dom";
 
 import CollectionItem from "../collection-item/collection-item.component";
 
-const CollectionPreview = ({ title, items, routeName }) => {
+const CollectionPreview = ({ collection }) => {
+  const { title, items, routeName } = collection;
   const navigate = useNavigate();
 
   return (
@@ -22,8 +22,8 @@ const CollectionPreview = ({ title, items, routeName }) => {
       <div className="preview">
         {items
           .filter((_, idx) => idx < 4)
-          .map(({ id, ...otherItemProps }) => (
-            <CollectionItem key={id} {...otherItemProps} />
+          .map((product) => (
+            <CollectionItem key={product.id} product={product} />
           ))}
       </div>
     </div>
