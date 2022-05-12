@@ -18,18 +18,18 @@ function App() {
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index path="/" element={<HomePage />} />
-          <Route path="shop" element={<ShopPage />} />
+          <Route path="shop/*" element={<ShopPage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route
             path="auth"
             element={currentUser ? null : <AuthenticationPage />}
           />
           <Route path="checkout" element={<CheckoutPage />} />
-          <Route path="shop/hats" element={null} />
+          {/* <Route path="shop/hats" element={null} />
           <Route path="shop/jackets" element={null} />
           <Route path="shop/sneakers" element={null} />
           <Route path="shop/womens" element={null} />
-          <Route path="shop/mens" element={null} />
+          <Route path="shop/mens" element={null} /> */}
         </Route>
       </Routes>
     </div>

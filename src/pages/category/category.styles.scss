@@ -1,0 +1,21 @@
+.category-page {
+  display: flex;
+  flex-direction: column;
+  margin: 11rem 4rem 2rem 4rem;
+
+  .category-title {
+    text-align: center;
+    margin-bottom: 8rem;
+    text-transform: uppercase;
+    font-size: 5rem;
+    letter-spacing: 2rem;
+  }
+
+  .preview {
+    // display: flex;
+    // justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+  }
+}

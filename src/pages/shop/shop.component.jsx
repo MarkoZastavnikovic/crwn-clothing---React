@@ -1,19 +1,16 @@
-import { useContext } from "react";
-// import SHOP_DATA from "../../shop-data.json";
-import { ProductsContext } from "../../contexts/products.context";
-import CollectionPreview from "../../components/collection-preview/collection-preview.component";
+import { Routes, Route } from "react-router-dom";
+
+import ShopPreview from "../../components/shop-preview/shop-preview.component";
+import CategoryPage from "../category/category.component";
 
 import "./shop.styles.scss";
 
 const ShopPage = () => {
-  const { products } = useContext(ProductsContext);
-
   return (
-    <div className="shop-page page">
-      {products.map((collection) => (
-        <CollectionPreview key={collection.id} collection={collection} />
-      ))}
-    </div>
+    <Routes>
+      <Route index element={<ShopPreview />} />
+      <Route path=":category" element={<CategoryPage />} />
+    </Routes>
   );
 };
 
