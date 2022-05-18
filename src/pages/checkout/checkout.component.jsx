@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 
 import { CartContext } from "../../contexts/cart.context";
 
@@ -30,7 +30,7 @@ const Checkout = () => {
       </div>
 
       {cartItems.map((cartItem) => (
-        <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+        <CheckoutItem key={cartItem.name} cartItem={cartItem} />
       ))}
       <span className="total">Total: {cartTotal}&euro;</span>
     </div>

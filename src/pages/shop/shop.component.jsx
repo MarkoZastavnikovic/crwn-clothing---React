@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Routes, Route } from "react-router-dom";
 
 import ShopPreview from "../../components/shop-preview/shop-preview.component";

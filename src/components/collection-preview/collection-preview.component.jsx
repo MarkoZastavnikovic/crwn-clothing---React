@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./collection-preview.styles.scss";
 
 import { useNavigate } from "react-router-dom";

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 // import SHOP_DATA from "../../shop-data.json";
 import { ProductsContext } from "../../contexts/products.context";
 import CollectionPreview from "../../components/collection-preview/collection-preview.component";
