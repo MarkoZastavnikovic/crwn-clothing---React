@@ -7,11 +7,13 @@
   position: relative;
   // background-color: gray;
   border: 0.1rem solid black;
+  // box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
 
   &:hover {
     // border: 1px solid black;
-    // transform: translateY(0.3rem);
-    // box-shadow: 0 2rem 3rem 0 rgba(0, 0, 0, 0.3);
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.2);
 
     & .inverted-transparent {
       opacity: 100%;

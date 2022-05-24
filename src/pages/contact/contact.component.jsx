@@ -1,5 +1,7 @@
 import React from "react";
 
+import { ReactComponent as LinkedinIcon } from "../../assets/linkedin-icon.svg";
+
 import "./contact.styles.scss";
 
 const ContactPage = () => (
@@ -9,8 +11,10 @@ const ContactPage = () => (
       rel="noreferrer"
       target="_blank"
       href="https://www.linkedin.com/in/marko-zastavnikovi%C4%87-509048237/"
+      className="contact-container"
     >
-      https://www.linkedin.com/in/marko-zastavnikovi%C4%87-509048237/
+      <LinkedinIcon className="linkedin-icon" />
+      <span>Marko Zastavniković</span>
     </a>
   </div>
 );

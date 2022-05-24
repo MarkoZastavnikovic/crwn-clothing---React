@@ -6,21 +6,24 @@ import { useNavigate } from "react-router-dom";
 
 import CollectionItem from "../collection-item/collection-item.component";
 
+import { ReactComponent as ArrowRight } from "../../assets/arrow-narrow-right.svg";
+
 const CollectionPreview = ({ collection }) => {
   const { title, items, routeName } = collection;
   const navigate = useNavigate();
 
   return (
     <div className="collection-preview">
-      <h1
+      <div
         className="title"
         onClick={() => {
           navigate(`${routeName}`);
         }}
       >
         {title.toUpperCase()}
-        <span className="arrow-right">&rarr;</span>
-      </h1>
+        <ArrowRight className="arrow-right" />
+        {/* <span className="arrow-right">&rarr;</span> */}
+      </div>
       <div className="preview">
         {items
           .filter((_, idx) => idx < 4)

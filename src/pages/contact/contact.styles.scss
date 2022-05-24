@@ -1,1 +1,28 @@
+.contact-page {
+  h1 {
+    margin-bottom: 5rem;
+  }
 
+  .contact-container {
+    width: fit-content;
+    display: flex;
+    gap: 2rem;
+    // transform: translateX(2rem);
+    padding: 0 2rem;
+    transition: all 0.4s;
+
+    .linkedin-icon {
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+
+    span {
+      font-size: 1.8rem;
+    }
+
+    &:hover {
+      //   color: blue;
+      fill: blue;
+    }
+  }
+}

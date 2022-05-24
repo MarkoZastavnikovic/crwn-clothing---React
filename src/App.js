@@ -1,8 +1,23 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
-import { UserContext } from "./contexts/user.context";
+import ScrollToTop from "./utils/ScrollToTop/scroll-to-top.component";
+
+// import { UserContext } from "./contexts/user.context";
+
+import {
+  onAuthStateChangedListener,
+  createUserDocumentFromAuth,
+  getCategoriesAndDocuments,
+} from "./utils/firebase/firebase.utils";
+
+import { createActionSetCurrentUser } from "./store/user/user.action.js";
+import { createActionSetProductsArray } from "./store/products/products.action";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { selectCurrentUser } from "./store/user/user.selector";
 
 import AuthenticationPage from "./pages/authentication/authentication.component";
 import HomePage from "./pages/homepage/homepage.component.jsx";
@@ -12,9 +27,31 @@ import Header from "./components/header/header.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 
 function App() {
-  const { currentUser } = useContext(UserContext);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatch(createActionSetCurrentUser(user));
+    });
+
+    return unsubscribe;
+  }, [dispatch]);
+
+  useEffect(() => {
+    const getCategoriesMap = async () => {
+      const productsArray = await getCategoriesAndDocuments();
+      dispatch(createActionSetProductsArray(productsArray));
+    };
+    getCategoriesMap();
+  }, [dispatch]);
+
+  const currentUser = useSelector(selectCurrentUser);
   return (
     <div className="App">
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index path="/" element={<HomePage />} />
@@ -25,11 +62,6 @@ function App() {
             element={currentUser ? null : <AuthenticationPage />}
           />
           <Route path="checkout" element={<CheckoutPage />} />
-          {/* <Route path="shop/hats" element={null} />
-          <Route path="shop/jackets" element={null} />
-          <Route path="shop/sneakers" element={null} />
-          <Route path="shop/womens" element={null} />
-          <Route path="shop/mens" element={null} /> */}
         </Route>
       </Routes>
     </div>
