@@ -4,17 +4,22 @@ E-commerce platform for clothes and footwear.
 
 Technologies used:
 
-- React (Create React App)
+- Create React App
+- React Hooks
 - React Router
 - React Contex
 - Redux
 - Redux Persist
 - Redux Thunk
 - Redux Saga
-- Reselect (memoization)
-- Firebase (authentication and database)
-- Stripe (payments)
-- Typescript
+- Reselect
+- Firebase
+- Stripe
+- TypeScript
 - GraphQL + Apollo
 - SASS
 - Media queries
+
+Site:
+
+- https://crwn-clothing-marz.netlify.app
