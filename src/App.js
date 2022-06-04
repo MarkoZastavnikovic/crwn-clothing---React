@@ -9,11 +9,11 @@ import ScrollToTop from "./utils/ScrollToTop/scroll-to-top.component";
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
-  getCategoriesAndDocuments,
+  // getCategoriesAndDocuments,
 } from "./utils/firebase/firebase.utils";
 
 import { createActionSetCurrentUser } from "./store/user/user.action.js";
-import { createActionSetProductsArray } from "./store/products/products.action";
+// import { fetchProductsAsync } from "./store/products/products.action";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -40,13 +40,14 @@ function App() {
     return unsubscribe;
   }, [dispatch]);
 
-  useEffect(() => {
-    const getCategoriesMap = async () => {
-      const productsArray = await getCategoriesAndDocuments();
-      dispatch(createActionSetProductsArray(productsArray));
-    };
-    getCategoriesMap();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchProductsAsync());
+  //   // const getCategoriesMap = async () => {
+  //   //   const productsArray = await getCategoriesAndDocuments();
+  //   //   dispatch(createActionSetProductsArray(productsArray));
+  //   // };
+  //   // getCategoriesMap();
+  // }, [dispatch]);
 
   const currentUser = useSelector(selectCurrentUser);
   return (

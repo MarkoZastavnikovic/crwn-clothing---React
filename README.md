@@ -7,7 +7,7 @@ Technologies used:
 - Create React App
 - React Hooks
 - React Router
-- React Contex
+- React Context
 - Redux
 - Redux Persist
 - Redux Thunk
