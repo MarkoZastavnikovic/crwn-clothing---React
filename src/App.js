@@ -4,11 +4,13 @@ import "./App.css";
 
 import ScrollToTop from "./utils/ScrollToTop/scroll-to-top.component";
 
+import Spinner from "./components/spinner/spinner.component";
+
 // import { UserContext } from "./contexts/user.context";
 
 import {
   onAuthStateChangedListener,
-  createUserDocumentFromAuth,
+  // createUserDocumentFromAuth,
   // getCategoriesAndDocuments,
 } from "./utils/firebase/firebase.utils";
 
@@ -31,9 +33,10 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
+      // if (user) {
+      //   console.log("app create doc");
+      //   createUserDocumentFromAuth(user);
+      // }
       dispatch(createActionSetCurrentUser(user));
     });
 
@@ -60,7 +63,7 @@ function App() {
           <Route path="contact" element={<ContactPage />} />
           <Route
             path="auth"
-            element={currentUser ? null : <AuthenticationPage />}
+            element={currentUser ? <Spinner /> : <AuthenticationPage />}
           />
           <Route path="checkout" element={<CheckoutPage />} />
         </Route>

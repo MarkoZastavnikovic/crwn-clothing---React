@@ -6,21 +6,23 @@ import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
 // export const createActionSetProductsArray = (categoriesMap) =>
 //   createAction(PRODUCTS_ACTION_TYPES.SET_PRODUCTS_ARRAY, categoriesMap);
 
-export const createActionFetchProductsStart = (productsArray) =>
-  createAction(PRODUCTS_ACTION_TYPES.FETCH_PRODUCTS_START, productsArray);
+export const createActionFetchProductsStart = () =>
+  createAction(PRODUCTS_ACTION_TYPES.FETCH_PRODUCTS_START);
 
 export const createActionFetchProductsSuccess = (productsArray) =>
   createAction(PRODUCTS_ACTION_TYPES.FETCH_PRODUCTS_SUCCESS, productsArray);
 
-export const createActionFetchProductsFailed = (productsArray) =>
-  createAction(PRODUCTS_ACTION_TYPES.FETCH_PRODUCTS_FAILED, productsArray);
+export const createActionFetchProductsFailed = (error) =>
+  createAction(PRODUCTS_ACTION_TYPES.FETCH_PRODUCTS_FAILED, error);
 
-export const fetchProductsAsync = () => async (dispatch) => {
+export const createActionFetchProductsAsync = () => async (dispatch) => {
   dispatch(createActionFetchProductsStart());
   try {
     const productsArray = await getCategoriesAndDocuments();
     dispatch(createActionFetchProductsSuccess(productsArray));
-  } catch (e) {
-    dispatch(createActionFetchProductsFailed(e));
+  } catch (err) {
+    dispatch(createActionFetchProductsFailed(err));
+    console.error(`MARZ: fetching products problem (${err.message})`);
+    alert(`Something went wrong. Please reload.\n\n(Error code: ${err.code})`);
   }
 };

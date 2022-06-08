@@ -7,28 +7,41 @@ import CategoryPage from "../category/category.component";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { selectProductsAreLoading } from "../../store/products/products.selector";
+import {
+  selectProductsAreLoading,
+  // selectProductsError,
+  selectProducts,
+} from "../../store/products/products.selector";
 
 import Spinner from "../../components/spinner/spinner.component.jsx";
 
-import { fetchProductsAsync } from "../../store/products/products.action";
+import { createActionFetchProductsAsync } from "../../store/products/products.action";
 
 import "./shop.styles.scss";
 
 const ShopPage = () => {
   const dispatch = useDispatch();
 
-  const isLoading = useSelector(selectProductsAreLoading);
+  const productsAreLoading = useSelector(selectProductsAreLoading);
+
+  // const productsError = useSelector(selectProductsError);
+
+  const productsArray = useSelector(selectProducts);
 
   useEffect(() => {
-    dispatch(fetchProductsAsync());
-  }, [dispatch]);
+    if (Array.isArray(productsArray) && productsArray.length === 0) {
+      dispatch(createActionFetchProductsAsync());
+    }
+  }, [dispatch, productsArray]);
   return (
     <Routes>
-      <Route index element={isLoading ? <Spinner /> : <ShopPreview />} />
+      <Route
+        index
+        element={productsAreLoading ? <Spinner /> : <ShopPreview />}
+      />
       <Route
         path=":category"
-        element={isLoading ? <Spinner /> : <CategoryPage />}
+        element={productsAreLoading ? <Spinner /> : <CategoryPage />}
       />
     </Routes>
   );

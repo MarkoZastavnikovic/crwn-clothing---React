@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 // import { getRedirectResult } from "firebase/auth";
 
 import {
+  auth,
+  createUserDocumentFromAuth,
   signInWithGooglePopup,
   signInAuthWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
@@ -42,6 +44,7 @@ const SignIn = () => {
   const signInWithGoogle = async () => {
     try {
       await signInWithGooglePopup();
+      createUserDocumentFromAuth(auth.currentUser);
 
       navigate("/");
     } catch (err) {

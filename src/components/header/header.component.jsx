@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
+import { selectDisplayName } from "../../store/user/user.selector";
 
 const Header = () => {
   // const { currentUser } = useContext(UserContext);
@@ -25,6 +26,8 @@ const Header = () => {
   // const { isCartOpen } = useContext(CartContext);
 
   const isCartOpen = useSelector(selectIsCartOpen);
+
+  const displayName = useSelector(selectDisplayName);
 
   return (
     <Fragment>
@@ -38,6 +41,8 @@ const Header = () => {
               ? `Welcome, ${
                   currentUser.displayName
                     ? currentUser.displayName.split(" ")[0]
+                    : displayName
+                    ? displayName
                     : "user"
                 }!`
               : null}

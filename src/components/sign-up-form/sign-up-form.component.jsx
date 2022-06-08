@@ -2,9 +2,15 @@ import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+
+import { createActionSetDisplayName } from "../../store/user/user.action";
+
 import {
-  creatAuthUserWithEmailAndPassword,
+  auth,
+  createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
+  updateProfileDisplayName,
 } from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../form-input/form-input.component";
@@ -28,24 +34,35 @@ const SignUpForm = () => {
   //   setFormFields(defaultFormFields);
   // };
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    if (!displayName || !email || !password) {
-      alert("Fill out the sign-in fields.");
-      return;
-    }
-
     try {
-      const { user } = await creatAuthUserWithEmailAndPassword(email, password);
-      await createUserDocumentFromAuth(user, displayName);
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      if (!displayName || !email || !password) {
+        alert("Fill out the sign-in fields.");
+        return;
+      }
+
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      createUserDocumentFromAuth(user, displayName);
+      await updateProfileDisplayName(user, displayName);
+      dispatch(
+        createActionSetDisplayName(
+          auth.currentUser?.displayName ? auth.currentUser.displayName : null
+        )
+      );
 
       // resetFormFields();
 

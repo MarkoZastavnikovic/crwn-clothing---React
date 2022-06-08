@@ -22,6 +22,11 @@ export const selectProductsAreLoading = createSelector(
   (products) => products.isLoading
 );
 
+export const selectProductsError = createSelector(
+  [selectProductsReducer],
+  (products) => products.error
+);
+
 // export const selectCategoriesMap = (state) =>
 // state.products.productsArray.reduce((acc, products) => {
 //   const { title, items, routeName } = products;

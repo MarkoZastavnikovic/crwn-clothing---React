@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -38,56 +39,70 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
+
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
+
 export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore(firebaseApp);
 
 export const addCollectionAndDocument = async (collectionKey, objectsToAdd) => {
-  const collectionRef = collection(db, collectionKey);
-  const batch = writeBatch(db);
+  try {
+    const collectionRef = collection(db, collectionKey);
+    const batch = writeBatch(db);
 
-  objectsToAdd.forEach((object) => {
-    const docRef = doc(collectionRef, object.title.toLowerCase());
-    batch.set(docRef, object);
-  });
+    objectsToAdd.forEach((object) => {
+      const docRef = doc(collectionRef, object.title.toLowerCase());
+      batch.set(docRef, object);
+    });
 
-  await batch.commit();
-  console.log("done");
+    await batch.commit();
+    console.log("done");
+  } catch (err) {
+    console.error(`MARZ: Adding collections and documents (${err.message})`);
+    throw err;
+  }
 };
 
 export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "categories");
-  const q = query(collectionRef);
+  try {
+    // throw new Error("ERROR TEST");
 
-  const querySnapshot = await getDocs(q);
-  // const categoryMap =
+    const collectionRef = collection(db, "categories");
+    const q = query(collectionRef);
 
-  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+    const querySnapshot = await getDocs(q);
+    // const categoryMap =
 
-  // reduce((acc, docSnapshot) => {
-  //   const { title, items, routeName } = docSnapshot.data();
-  //   acc[title.toLowerCase()] = { title, items, routeName };
-  //   return acc;
-  // }, {});
+    return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 
-  // return categoryMap;
+    // reduce((acc, docSnapshot) => {
+    //   const { title, items, routeName } = docSnapshot.data();
+    //   acc[title.toLowerCase()] = { title, items, routeName };
+    //   return acc;
+    // }, {});
+
+    // return categoryMap;
+  } catch (err) {
+    console.error(`MARZ: Getting documents (${err.message})`);
+    throw err;
+  }
 };
 
 export const createUserDocumentFromAuth = async (userAuth, displayNameUser) => {
-  if (!userAuth) return;
+  try {
+    if (!userAuth) return;
 
-  const userDocRef = doc(db, "users", userAuth.uid);
+    const userDocRef = doc(db, "users", userAuth.uid);
 
-  const userSnapshot = await getDoc(userDocRef);
+    const userSnapshot = await getDoc(userDocRef);
 
-  if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth;
-    const createdAt = new Date();
+    if (!userSnapshot.exists()) {
+      const { displayName, email } = userAuth;
+      const createdAt = new Date();
 
-    try {
       await setDoc(userDocRef, {
         displayName: displayName
           ? displayName
@@ -97,23 +112,25 @@ export const createUserDocumentFromAuth = async (userAuth, displayNameUser) => {
         email,
         createdAt,
       });
-    } catch (error) {
-      console.error(`MARZ: Creating user (${error.message})`);
     }
+
+    return userDocRef;
+  } catch (err) {
+    console.error(`MARZ: Creating user document (${err.message})`);
+    throw err;
   }
-
-  return userDocRef;
 };
 
-export const creatAuthUserWithEmailAndPassword = async (email, password) => {
-  return await createUserWithEmailAndPassword(auth, email, password);
-};
+export const createAuthUserWithEmailAndPassword = async (email, password) =>
+  await createUserWithEmailAndPassword(auth, email, password);
 
-export const signInAuthWithEmailAndPassword = async (email, password) => {
-  return await signInWithEmailAndPassword(auth, email, password);
-};
+export const signInAuthWithEmailAndPassword = (email, password) =>
+  signInWithEmailAndPassword(auth, email, password);
 
-export const signOutUser = async () => await signOut(auth);
+export const signOutUser = () => signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+export const updateProfileDisplayName = (user, displayName) =>
+  updateProfile(user, { displayName: displayName });

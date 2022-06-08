@@ -6,3 +6,8 @@ export const selectCurrentUser = createSelector(
   [selectUserReducer],
   (user) => user.currentUser
 );
+
+export const selectDisplayName = createSelector(
+  [selectUserReducer],
+  (user) => user.displayName
+);
