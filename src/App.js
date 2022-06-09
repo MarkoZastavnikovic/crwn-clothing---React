@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
-import ScrollToTop from "./utils/ScrollToTop/scroll-to-top.component";
+import ScrollToTop from "./utils/scroll-to-top/scroll-to-top.component";
 
 import Spinner from "./components/spinner/spinner.component";
 

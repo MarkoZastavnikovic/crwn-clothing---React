@@ -14,9 +14,7 @@ Technologies used:
 - Firebase
 - Stripe
 - TypeScript
-- GraphQL + Apollo
 - SASS
-- Media queries
 
 Site:
 

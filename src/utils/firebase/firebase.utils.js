@@ -93,6 +93,8 @@ export const getCategoriesAndDocuments = async () => {
 
 export const createUserDocumentFromAuth = async (userAuth, displayNameUser) => {
   try {
+    // throw new Error("ERROR TEST");
+
     if (!userAuth) return;
 
     const userDocRef = doc(db, "users", userAuth.uid);
@@ -124,13 +126,13 @@ export const createUserDocumentFromAuth = async (userAuth, displayNameUser) => {
 export const createAuthUserWithEmailAndPassword = async (email, password) =>
   await createUserWithEmailAndPassword(auth, email, password);
 
-export const signInAuthWithEmailAndPassword = (email, password) =>
-  signInWithEmailAndPassword(auth, email, password);
+export const signInAuthWithEmailAndPassword = async (email, password) =>
+  await signInWithEmailAndPassword(auth, email, password);
 
-export const signOutUser = () => signOut(auth);
+export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
 
-export const updateProfileDisplayName = (user, displayName) =>
-  updateProfile(user, { displayName: displayName });
+export const updateProfileDisplayName = async (user, displayName) =>
+  await updateProfile(user, { displayName: displayName });

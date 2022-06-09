@@ -5,18 +5,24 @@ import "./header.styles.scss";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
+import { useDispatch } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+
 // import { UserContext } from "../../contexts/user.context";
 // import { CartContext } from "../../contexts/cart.context";
 
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+// import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 import { useSelector } from "react-redux";
 
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 import { selectDisplayName } from "../../store/user/user.selector";
+
+import { createActionSignOutAsync } from "../../store/user/user.action";
 
 const Header = () => {
   // const { currentUser } = useContext(UserContext);
@@ -28,6 +34,14 @@ const Header = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const displayName = useSelector(selectDisplayName);
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const signOut = () => {
+    dispatch(createActionSignOutAsync(navigate));
+  };
 
   return (
     <Fragment>
@@ -57,7 +71,7 @@ const Header = () => {
           </Link>
 
           {currentUser ? (
-            <span className="option sign-out" onClick={signOutUser}>
+            <span className="option sign-out" onClick={signOut}>
               SIGN OUT
             </span>
           ) : (

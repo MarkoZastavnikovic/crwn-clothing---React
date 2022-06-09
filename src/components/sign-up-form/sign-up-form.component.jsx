@@ -4,17 +4,19 @@ import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
-import { createActionSetDisplayName } from "../../store/user/user.action";
+// import { createActionSetDisplayName } from "../../store/user/user.action";
 
-import {
-  auth,
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-  updateProfileDisplayName,
-} from "../../utils/firebase/firebase.utils";
+// import {
+//   auth,
+//   createAuthUserWithEmailAndPassword,
+//   createUserDocumentFromAuth,
+//   updateProfileDisplayName,
+// } from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
+
+import { createActionSignUpAsync } from "../../store/user/user.action";
 
 import "./sign-up-form.styles.scss";
 
@@ -38,43 +40,18 @@ const SignUpForm = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      if (password !== confirmPassword) {
-        alert("Passwords do not match.");
-        return;
-      }
-
-      if (!displayName || !email || !password) {
-        alert("Fill out the sign-in fields.");
-        return;
-      }
-
-      const { user } = await createAuthUserWithEmailAndPassword(
+    dispatch(
+      createActionSignUpAsync(
+        displayName,
         email,
-        password
-      );
-      createUserDocumentFromAuth(user, displayName);
-      await updateProfileDisplayName(user, displayName);
-      dispatch(
-        createActionSetDisplayName(
-          auth.currentUser?.displayName ? auth.currentUser.displayName : null
-        )
-      );
-
-      // resetFormFields();
-
-      navigate("/");
-    } catch (err) {
-      if (err.code === "auth/email-already-in-use") {
-        alert("Cannot create user, email already in use.");
-      } else {
-        console.error(`MARZ: sign up problem (${err.message})`);
-        alert(`Something went wrong. (Error code: ${err.code})`);
-      }
-    }
+        password,
+        confirmPassword,
+        navigate
+      )
+    );
   };
 
   const handleChange = (e) => {

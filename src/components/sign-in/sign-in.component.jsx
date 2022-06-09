@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import "./sign-in.styles.scss";
 
+import { useDispatch } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
 
 // import { getRedirectResult } from "firebase/auth";
 
-import {
-  auth,
-  createUserDocumentFromAuth,
-  signInWithGooglePopup,
-  signInAuthWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
+// import {
+//   auth,
+//   createUserDocumentFromAuth,
+//   signInWithGooglePopup,
+//   signInAuthWithEmailAndPassword,
+// } from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
+
+import {
+  createActionSignInGoogleAsync,
+  createActionSignInEmailAndPasswordAsync,
+} from "../../store/user/user.action";
 
 const defaultSignInFields = {
   email: "",
@@ -29,6 +36,8 @@ const SignIn = () => {
   //   setSignInFields(defaultSignInFields);
   // };
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   // useEffect(() => {
@@ -41,47 +50,16 @@ const SignIn = () => {
   //   fetchData();
   // }, []);
 
-  const signInWithGoogle = async () => {
-    try {
-      await signInWithGooglePopup();
-      createUserDocumentFromAuth(auth.currentUser);
-
-      navigate("/");
-    } catch (err) {
-      if (err.code === "auth/popup-closed-by-user") {
-        return;
-      } else {
-        console.error(`MARZ: Google sign in problem (${err.message})`);
-        alert(`Something went wrong. (Error code: ${err.code})`);
-      }
-    }
+  const signInWithGoogle = () => {
+    dispatch(createActionSignInGoogleAsync(navigate));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      alert("Fill out the sign-in fields.");
-      return;
-    }
-
-    try {
-      await signInAuthWithEmailAndPassword(email, password);
-
-      // resetSignInFields();
-
-      navigate("/");
-    } catch (err) {
-      if (
-        err.code === "auth/wrong-password" ||
-        err.code === "auth/user-not-found"
-      ) {
-        alert("Either your email or password are wrong.");
-      } else {
-        console.error(`MARZ: sign in problem (${err.message})`);
-        alert(`Something went wrong. (Error code: ${err.code})`);
-      }
-    }
+    dispatch(
+      createActionSignInEmailAndPasswordAsync(email, password, navigate)
+    );
   };
 
   const handleChange = (e) => {
