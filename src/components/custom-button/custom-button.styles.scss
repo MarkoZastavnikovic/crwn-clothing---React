@@ -40,7 +40,10 @@
     color: black;
     border: 0.1rem solid black;
     // letter-spacing: 0;
-    min-width: 70%;
+
+    &.min-width-70 {
+      min-width: 70%;
+    }
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.75);

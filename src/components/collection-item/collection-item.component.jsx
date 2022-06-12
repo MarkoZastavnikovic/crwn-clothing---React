@@ -29,7 +29,10 @@ const CollectionItem = ({ product }) => {
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
-      <CustomButton className="inverted-transparent" onClick={addProductToCart}>
+      <CustomButton
+        className="inverted-transparent min-width-70"
+        onClick={addProductToCart}
+      >
         Add to cart
       </CustomButton>
     </div>

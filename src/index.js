@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store/store";
@@ -15,23 +15,43 @@ import reportWebVitals from "./reportWebVitals";
 
 import { PersistGate } from "redux-persist/integration/react";
 
-ReactDOM.render(
+import { Elements } from "@stripe/react-stripe-js";
+
+import { stripePromice } from "./utils/stripe/stripe.utils";
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <Provider store={store}>
+//       <PersistGate loading={null} persistor={persistor}>
+//         <BrowserRouter>
+//           {/* <UserProvider> */}
+//           {/* <ProductsProvider> */}
+//           {/* <CartProvider> */}
+//           <App />
+//           {/* </CartProvider> */}
+//           {/* </ProductsProvider> */}
+//           {/* </UserProvider> */}
+//         </BrowserRouter>
+//       </PersistGate>
+//     </Provider>
+//   </React.StrictMode>,
+//   document.getElementById("root")
+// );
+
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          {/* <UserProvider> */}
-          {/* <ProductsProvider> */}
-          {/* <CartProvider> */}
-          <App />
-          {/* </CartProvider> */}
-          {/* </ProductsProvider> */}
-          {/* </UserProvider> */}
+          <Elements stripe={stripePromice}>
+            <App />
+          </Elements>
         </BrowserRouter>
       </PersistGate>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change
