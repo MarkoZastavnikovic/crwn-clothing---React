@@ -51,8 +51,10 @@ export const createActionSignUpAsync =
       if (err.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use.");
       } else {
-        console.error(`MARZ: sign up problem (${err.message})`);
-        alert(`Something went wrong. (Error code: ${err.code})`);
+        console.error(
+          `MARZ: Sign up problem. ${err.message} (Error code: ${err.code})`
+        );
+        alert(`Something went wrong. ${err.message} (Error code: ${err.code})`);
       }
     }
   };
@@ -67,8 +69,10 @@ export const createActionSignInGoogleAsync = (navigate) => async () => {
     if (err.code === "auth/popup-closed-by-user") {
       return;
     } else {
-      console.error(`MARZ: Google sign in problem (${err.message})`);
-      alert(`Something went wrong. (Error code: ${err.code})`);
+      console.error(
+        `MARZ: Google sign in problem. ${err.message} (Error code: ${err.code})`
+      );
+      alert(`Something went wrong. ${err.message} (Error code: ${err.code})`);
     }
   }
 };
@@ -94,8 +98,10 @@ export const createActionSignInEmailAndPasswordAsync =
       ) {
         alert("Either your email or password are wrong.");
       } else {
-        console.error(`MARZ: sign in problem (${err.message})`);
-        alert(`Something went wrong. (Error code: ${err.code})`);
+        console.error(
+          `MARZ: sign in problem. ${err.message} (Error code: ${err.code})`
+        );
+        alert(`Something went wrong. ${err.message} (Error code: ${err.code})`);
       }
     }
   };
@@ -106,7 +112,9 @@ export const createActionSignOutAsync = (navigate) => async () => {
 
     navigate("/");
   } catch (err) {
-    console.error(`MARZ: Sign out problem (${err.message})`);
-    alert(`Something went wrong. (Error code: ${err.code})`);
+    console.error(
+      `MARZ: Sign out problem. ${err.message} (Error code: ${err.code})`
+    );
+    alert(`Something went wrong. ${err.message} (Error code: ${err.code})`);
   }
 };

@@ -45,6 +45,13 @@ const Checkout = () => {
       ))}
       <span className="total">Total: {cartTotal}&euro;</span>
       <PaymentForm />
+      <div className="test-card-info">
+        <h3>Test credit card</h3>
+        <p>
+          CARD NUMBER: 4242 4242 4242 4242 --- DATE: Any future date --- CVC:
+          Any 3 digits --- ZIP: Any 5 digits
+        </p>
+      </div>
     </div>
   );
 };

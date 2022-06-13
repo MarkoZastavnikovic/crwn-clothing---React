@@ -12,16 +12,14 @@ exports.handler = async (event) => {
       payment_method_types: ["card"],
     });
 
-    console.log(paymentIntent);
-
     return {
       statusCode: 200,
       body: JSON.stringify({ paymentIntent }),
     };
-  } catch (err) {
+  } catch (error) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ err }),
+      body: JSON.stringify({ error }),
     };
   }
 };

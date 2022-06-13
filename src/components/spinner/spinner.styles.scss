@@ -25,4 +25,9 @@
       -webkit-transform: rotate(360deg);
     }
   }
+
+  &.spinner-button {
+    width: 3rem;
+    height: 3rem;
+  }
 }

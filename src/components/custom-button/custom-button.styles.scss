@@ -45,6 +45,11 @@
       min-width: 70%;
     }
 
+    &.payment {
+      margin-top: 3rem;
+      margin-left: auto;
+    }
+
     &:hover {
       background-color: rgba(0, 0, 0, 0.75);
       color: white;

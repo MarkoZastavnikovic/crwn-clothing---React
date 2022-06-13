@@ -6,7 +6,9 @@
   justify-content: center;
 
   .form-container {
-    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 10rem;
     min-width: 50rem;
   }
 }

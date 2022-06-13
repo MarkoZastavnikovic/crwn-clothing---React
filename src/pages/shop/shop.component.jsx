@@ -37,11 +37,15 @@ const ShopPage = () => {
     <Routes>
       <Route
         index
-        element={productsAreLoading ? <Spinner /> : <ShopPreview />}
+        element={
+          productsAreLoading ? <Spinner overlay={true} /> : <ShopPreview />
+        }
       />
       <Route
         path=":category"
-        element={productsAreLoading ? <Spinner /> : <CategoryPage />}
+        element={
+          productsAreLoading ? <Spinner overlay={true} /> : <CategoryPage />
+        }
       />
     </Routes>
   );

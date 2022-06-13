@@ -61,7 +61,9 @@ export const addCollectionAndDocument = async (collectionKey, objectsToAdd) => {
     await batch.commit();
     console.log("done");
   } catch (err) {
-    console.error(`MARZ: Adding collections and documents (${err.message})`);
+    console.error(
+      `MARZ: Adding collections and documents problem (${err.message})`
+    );
     throw err;
   }
 };
@@ -86,7 +88,7 @@ export const getCategoriesAndDocuments = async () => {
 
     // return categoryMap;
   } catch (err) {
-    console.error(`MARZ: Getting documents (${err.message})`);
+    console.error(`MARZ: Getting documents problem (${err.message})`);
     throw err;
   }
 };
@@ -118,7 +120,7 @@ export const createUserDocumentFromAuth = async (userAuth, displayNameUser) => {
 
     return userDocRef;
   } catch (err) {
-    console.error(`MARZ: Creating user document (${err.message})`);
+    console.error(`MARZ: Creating user document problem (${err.message})`);
     throw err;
   }
 };

@@ -63,7 +63,9 @@ function App() {
           <Route path="contact" element={<ContactPage />} />
           <Route
             path="auth"
-            element={currentUser ? <Spinner /> : <AuthenticationPage />}
+            element={
+              currentUser ? <Spinner overlay={true} /> : <AuthenticationPage />
+            }
           />
           <Route path="checkout" element={<CheckoutPage />} />
         </Route>

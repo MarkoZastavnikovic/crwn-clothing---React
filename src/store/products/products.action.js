@@ -22,7 +22,11 @@ export const createActionFetchProductsAsync = () => async (dispatch) => {
     dispatch(createActionFetchProductsSuccess(productsArray));
   } catch (err) {
     dispatch(createActionFetchProductsFailed(err));
-    console.error(`MARZ: fetching products problem (${err.message})`);
-    alert(`Something went wrong. Please reload.\n\n(Error code: ${err.code})`);
+    console.error(
+      `MARZ: Fetching products problem. ${err.message} (Error code: ${err.code})`
+    );
+    alert(
+      `Something went wrong. Please reload.\n\n${err.message} (Error code: ${err.code})`
+    );
   }
 };
