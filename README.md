@@ -13,7 +13,7 @@ Technologies used:
 - Reselect
 - Firebase
 - Stripe
-- SASS
+- SCSS
 
 Site:
 
