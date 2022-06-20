@@ -59,12 +59,10 @@ const PaymentForm = () => {
 
       const data = await response.json();
 
-      if (data.error) {
-        console.error(`MARZ: Error code: ${data.error.code}`);
-        alert(`Something went wrong. (Error code: ${data.error.code})`);
-        setIsProcessingPayments(false);
-        return;
-      }
+      if (!response.ok)
+        throw new Error(
+          `Something went wrong. (Error code: ${data.error.code}) (${response.status})`
+        );
 
       if (!data.paymentIntent) {
         setIsProcessingPayments(false);
@@ -91,23 +89,27 @@ const PaymentForm = () => {
       });
 
       if (paymentResult.error) {
-        console.error(
-          `MARZ: ${paymentResult.error.message} (Error code: ${paymentResult.error.code})`
-        );
-        alert(
+        throw new Error(
           `${paymentResult.error.message} (Error code: ${paymentResult.error.code})`
         );
+      } else if (
+        paymentResult.paymentIntent &&
+        paymentResult.paymentIntent.status === "succeeded"
+      ) {
+        alert("Payment successful.");
+        dispatch(createActionClearAllItemsFromCart());
+      } else if (paymentResult.paymentIntent) {
+        throw new Error(
+          `Payment status: ${paymentResult.paymentIntent.status}`
+        );
       } else {
-        if (paymentResult.paymentIntent.status === "succeeded") {
-          alert("Payment Successful.");
-          dispatch(createActionClearAllItemsFromCart());
-        }
+        throw new Error("Payment failed.");
       }
 
       setIsProcessingPayments(false);
     } catch (err) {
-      console.error(`MARZ: Payment problem. ${err} (Error code: ${err.code})`);
-      alert(`Something went wrong. ${err.message} (Error code: ${err.code})`);
+      console.error(`MARZ: Payment problem. ${err.message}`);
+      alert(err.message);
       setIsProcessingPayments(false);
     }
   };
